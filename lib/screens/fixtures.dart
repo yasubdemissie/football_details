@@ -27,7 +27,7 @@ class _FixturesScreenState extends State<FixturesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F6FB), // Subtle background color
+      // backgroundColor: const Color(0xFFF3F6FB), // Subtle background color
       appBar: AppBar(
         title: const Text('Fixtures'),
         backgroundColor: const Color(0xFF00274D),
@@ -84,10 +84,10 @@ class _FixturesScreenState extends State<FixturesScreen> {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Color.fromARGB(255, 224, 224, 224),
-            Color.fromARGB(255, 255, 255, 255),
-            Color.fromARGB(255, 255, 255, 255),
-            Color.fromARGB(255, 224, 224, 224),
+            Color.fromARGB(255, 0, 0, 0),
+            Color.fromARGB(255, 20, 20, 50),
+            Color.fromARGB(255, 17, 16, 39),
+            Color.fromARGB(255, 0, 0, 0),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -95,7 +95,7 @@ class _FixturesScreenState extends State<FixturesScreen> {
         borderRadius: BorderRadius.circular(12.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
+            color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
             blurRadius: 6.0,
             // offset: const Offset(0, 3),
           ),
@@ -114,9 +114,10 @@ class _FixturesScreenState extends State<FixturesScreen> {
           '$homeTeam vs $awayTeam',
           style: const TextStyle(
             fontSize: 14.0,
-            fontWeight: FontWeight.w600,
+            // fontFamily: String.fromEnvironment("name"),
+            fontWeight: FontWeight.w300,
             fontStyle: FontStyle.italic,
-            color: Colors.black87,
+            color: Color.fromARGB(221, 236, 236, 236),
           ),
         ),
         subtitle: Row(
@@ -124,14 +125,14 @@ class _FixturesScreenState extends State<FixturesScreen> {
             const Icon(
               Icons.punch_clock_outlined,
               size: 16.0,
-              color: Color(0xFF013084),
+              color: Color.fromARGB(255, 134, 179, 255),
             ),
             const SizedBox(width: 5.0),
             Text(
               date,
               style: const TextStyle(
                 fontSize: 14.0,
-                color: Color(0xFF0056B4),
+                color: Color.fromARGB(255, 171, 212, 255),
               ),
             ),
           ],
@@ -141,7 +142,7 @@ class _FixturesScreenState extends State<FixturesScreen> {
           style: const TextStyle(
             fontSize: 13.0,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF013084),
+            color: Color.fromARGB(255, 152, 190, 255),
           ),
         ),
         onTap: () {

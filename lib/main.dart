@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // title: 'Football Streaming App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.dark(
+          // primarySwatch: Colors.blue,
+          ),
       home: const HomeScreen(),
     );
   }
@@ -64,8 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        title: Text(
-          'YDW',
+        title: const Text(
+          'YasDW Soccer',
           style: TextStyle(
             fontSize: 19, // Increase font size
             fontStyle: FontStyle.italic, // Add italic style
@@ -78,7 +78,12 @@ class _HomeScreenState extends State<HomeScreen> {
             255, 0, 0, 0), // Change background color to a more appealing shade
         elevation: 4, // Add slight shadow for a floating effect
       ),
-      body: _screens[_selectedIndex],
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.black,
+        ),
+        child: _screens[_selectedIndex],
+      ),
       bottomNavigationBar: BottomAppBar(
         color: Color.fromARGB(255, 0, 0, 0),
         shape: const CircularNotchedRectangle(),

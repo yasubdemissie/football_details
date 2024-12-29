@@ -20,7 +20,11 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Game Details'),
+        backgroundColor: const Color.fromARGB(255, 48, 48, 48),
+        title: const Text(
+          'Game Details',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: fetchGameDetails(
@@ -46,33 +50,40 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
             var home = teams["home"];
             var homeLogo = home["logo"];
             var away = teams["away"];
+            var awayName = away["name"];
+            var homeName = home["name"];
             var awayLogo = away["logo"];
             List<String> menus = [
               "Details",
               "Lineups",
               "Statistics",
-              "Standings"
+              "Standings",
+              "Commentators"
             ];
 
             // For the main Part
             var events = gameInfo['events'];
-            final elapsedTime = events[0]["time"]["elapsed"];
-            final teamName = events[0]["team"]["name"];
-            final teamLogo = events[0]["team"]["logo"];
-            final playerName = events[0]["player"]["name"];
-            final assistName = events[0]["assist"]["name"];
-            final eventType = events[0]["type"] ?? "";
-            final eventDetail = events[0]["detail"] ?? "";
-            var eventLength = events.length;
-
             return Container(
-              padding: const EdgeInsets.all(8.0),
-              child: Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 16),
-                    Column(
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(color: Colors.black),
+              // padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 16),
+                  Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 51, 23, 23),
+                          Color.fromARGB(255, 54, 55, 68),
+                          Color.fromARGB(255, 77, 82, 125),
+                        ],
+                        // begin: Alignment.topLeft,
+                        // end: Alignment.bottomRight,
+                      ),
+                    ),
+                    child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,136 +111,127 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Container(
-                              height: 50,
+                            SizedBox(
+                              height: 70,
                               width: 50,
-                              child: Image.network("$homeLogo"),
+                              child: Column(
+                                children: [
+                                  Image.network(
+                                    "$homeLogo",
+                                    height: 40,
+                                    width: 40,
+                                    fit: BoxFit.contain,
+                                  ),
+                                  Text(
+                                    "$homeName",
+                                    style: const TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.white,
+                                        overflow: TextOverflow.ellipsis),
+                                  )
+                                ],
+                              ),
                             ),
                             Container(
-                              child:
-                                  Text("${score["home"]} - ${score["away"]}"),
+                              child: Text(
+                                "${score["home"]} - ${score["away"]}",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                ),
+                              ),
                             ),
                             Container(
-                              height: 50,
+                              height: 70,
                               width: 50,
-                              child: Image.network("$awayLogo"),
+                              child: Column(
+                                children: [
+                                  Image.network(
+                                    "$awayLogo",
+                                    height: 40,
+                                    width: 40,
+                                    fit: BoxFit.contain,
+                                  ),
+                                  Text(
+                                    "$awayName",
+                                    style: const TextStyle(
+                                        fontSize: 10,
+                                        color: Colors.white,
+                                        overflow: TextOverflow.ellipsis),
+                                  )
+                                ],
+                              ),
                             ),
                             // Image.network("$homeLogo"),
                           ],
                         ), // The middle part of the header which shows the teams name and logo
                         const SizedBox(height: 56),
 
-                        Container(
-                          height: 70,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: menus.asMap().entries.map((entry) {
-                                int index = entry.key;
-                                String menu = entry.value;
-                                return MenuDetailsContainer(
-                                    title: menu, index: index);
-                              }).toList(),
-                            ),
-                          ),
-                        ), // The lower part of the header which shows the menu list
+                        // The lower part of the header which shows the menu list
                       ],
                     ),
-                    const SizedBox(
-                      height: 30,
+                  ),
+                  Container(
+                    height: 70,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: menus.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          String menu = entry.value;
+                          return MenuDetailsContainer(
+                              title: menu, index: _selectedMenuIndex);
+                        }).toList(),
+                      ),
                     ),
-                    Text("$teamName"),
-                    GameEventsCard(
-                        teamLogo: teamLogo,
-                        playerName: playerName,
-                        assistName: assistName,
-                        teamName: teamName,
-                        elapsedTime: elapsedTime)
-                    // Text("$away"),
-                    // ListView(
-                    //   children: menus.asMap().entries.map((entry) {
-                    //     return Text("Datas");
-                    //   }).toList(),
-                    // ),
+                  ),
 
-                    // ListView.builder(
-                    //   itemCount: events.length,
-                    //   itemBuilder: (context, index) {
-                    //     return Text("$index");
-                    //       final event = events[index];
-                    //       final elapsedTime = event["time"]["elapsed"];
-                    //       final teamName = event["team"]["name"];
-                    //       final teamLogo = event["team"]["logo"];
-                    //       final playerName = event["player"]["name"];
-                    //       final assistName = event["assist"]["name"];
-                    //       final eventType = event["type"];
-                    //       final eventDetail = event["detail"];
-
-                    //       return Text(
-                    //           "$playerName $eventType $eventDetail $teamName $elapsedTime ");
-                    //       // return Card(
-                    //       //   margin: const EdgeInsets.symmetric(
-                    //       //       horizontal: 12.0, vertical: 8.0),
-                    //       //   elevation: 4,
-                    //       //   shape: RoundedRectangleBorder(
-                    //       //     borderRadius: BorderRadius.circular(12.0),
-                    //       //   ),
-                    //       //   child: ListTile(
-                    //       //     leading: teamLogo != null
-                    //       //         ? Image.network(
-                    //       //             teamLogo,
-                    //       //             height: 40,
-                    //       //             width: 40,
-                    //       //             fit: BoxFit.cover,
-                    //       //           )
-                    //       //         : const Icon(
-                    //       //             Icons.sports_soccer,
-                    //       //             color: Colors.grey,
-                    //       //             size: 40,
-                    //       //           ),
-                    //       //     title: Text(
-                    //       //       playerName,
-                    //       //       style: const TextStyle(
-                    //       //         fontSize: 16.0,
-                    //       //         fontWeight: FontWeight.bold,
-                    //       //       ),
-                    //       //     ),
-                    //       //     subtitle: Column(
-                    //       //       crossAxisAlignment: CrossAxisAlignment.start,
-                    //       //       children: [
-                    //       //         if (assistName != null &&
-                    //       //             assistName.isNotEmpty)
-                    //       //           Text(
-                    //       //             "Assist: $assistName",
-                    //       //             style:
-                    //       //                 const TextStyle(color: Colors.grey),
-                    //       //           ),
-                    //       //         Text(
-                    //       //           "$eventType - $eventDetail",
-                    //       //           style:
-                    //       //               const TextStyle(color: Colors.black87),
-                    //       //         ),
-                    //       //         Text(
-                    //       //           "$teamName at $elapsedTime'",
-                    //       //           style:
-                    //       //               const TextStyle(color: Colors.blueGrey),
-                    //       //         ),
-                    //       //       ],
-                    //       //     ),
-                    //       //     trailing: Text(
-                    //       //       "$elapsedTime'",
-                    //       //       style: const TextStyle(
-                    //       //         fontWeight: FontWeight.bold,
-                    //       //         fontSize: 14.0,
-                    //       //         color: Colors.black54,
-                    //       //       ),
-                    //       //     ),
-                    //       //   ),
-                    //       // );
-                    //   },
-                    // ),
-                  ],
-                ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  // Text("$teamName"),
+                  Expanded(
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: events.length,
+                        itemBuilder: (context, index) {
+                          final event = events[index];
+                          final elapsedTime = event["time"]["elapsed"];
+                          final teamName = event["team"]["name"];
+                          final teamLogo = event["team"]["logo"];
+                          final playerName = event["player"]["name"];
+                          final assistName = event["assist"]["name"];
+                          final eventType = event["type"];
+                          return GameEventsCard(
+                            teamLogo: teamLogo,
+                            playerName: playerName,
+                            assistName: assistName,
+                            teamName: teamName,
+                            elapsedTime: elapsedTime,
+                            eventType: eventType,
+                          );
+                        }),
+                  )
+                  // Column(
+                  //   children: List.generate(events.length, (i) {
+                  //     final event = events[i];
+                  //     final elapsedTime = event["time"]["elapsed"];
+                  //     final teamName = event["team"]["name"];
+                  //     final teamLogo = event["team"]["logo"];
+                  //     final playerName = event["player"]["name"];
+                  //     final assistName = event["assist"]["name"];
+                  //     final eventType = event["type"];
+                  //     return GameEventsCard(
+                  //       teamLogo: teamLogo,
+                  //       playerName: playerName,
+                  //       assistName: assistName,
+                  //       teamName: teamName,
+                  //       elapsedTime: elapsedTime,
+                  //       eventType: eventType,
+                  //     );
+                  //   }),
+                  // ),
+                ],
               ),
             );
           }
@@ -247,6 +249,7 @@ class GameEventsCard extends StatelessWidget {
     required this.assistName,
     required this.teamName,
     required this.elapsedTime,
+    required this.eventType,
   });
 
   final dynamic teamLogo;
@@ -254,32 +257,42 @@ class GameEventsCard extends StatelessWidget {
   final dynamic assistName;
   final dynamic teamName;
   final dynamic elapsedTime;
+  final dynamic eventType;
 
   @override
   Widget build(BuildContext context) {
+    String type = eventType == "Goal"
+        ? "⚽ Goal $teamName at $elapsedTime'"
+        : "Substitution at $elapsedTime'";
+    String assist =
+        type == "Goal" ? "Assist: $assistName" : "Sub out $assistName";
+
     return Card(
-      margin: EdgeInsets.all(12),
+      margin: EdgeInsets.all(6),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      shadowColor: const Color.fromARGB(255, 171, 169, 169),
+      color: Colors.black38,
       elevation: 3,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         child: ListTile(
           leading: teamLogo != null
               ? Image.network(
                   teamLogo,
-                  height: 40,
-                  width: 40,
-                  fit: BoxFit.cover,
+                  height: 25,
+                  width: 25,
+                  fit: BoxFit.fill,
                 )
               : const Icon(
                   Icons.sports_soccer,
                   color: Colors.grey,
-                  size: 40,
+                  size: 25,
                 ),
           title: Text(
             playerName,
             style: const TextStyle(
-              fontSize: 16.0,
+              fontSize: 14.0,
+              color: Color.fromARGB(255, 220, 220, 220),
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -288,15 +301,16 @@ class GameEventsCard extends StatelessWidget {
             children: [
               if (assistName != null && assistName.isNotEmpty)
                 Text(
-                  "Assist: $assistName",
+                  "$assist",
                   style: const TextStyle(color: Colors.grey),
                 ),
               const SizedBox(
-                height: 15,
+                height: 5,
               ),
               Text(
-                "⚽ Goal $teamName at $elapsedTime'",
-                style: const TextStyle(color: Colors.blueGrey),
+                "$type",
+                style:
+                    const TextStyle(color: Color.fromARGB(255, 113, 145, 162)),
               ),
             ],
           ),
@@ -305,7 +319,7 @@ class GameEventsCard extends StatelessWidget {
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14.0,
-              color: Colors.black54,
+              color: Color.fromARGB(137, 216, 216, 216),
             ),
           ),
         ),
@@ -317,8 +331,7 @@ class GameEventsCard extends StatelessWidget {
 class MenuDetailsContainer extends StatefulWidget {
   final String title;
   final int index;
-  const MenuDetailsContainer(
-      {super.key, required this.title, required this.index});
+  MenuDetailsContainer({super.key, required this.title, this.index = 0});
 
   @override
   State<MenuDetailsContainer> createState() => _MenuDetailsContainerState();
@@ -335,15 +348,20 @@ class _MenuDetailsContainerState extends State<MenuDetailsContainer> {
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: _selectedMenuIndex != widget.index
-                ? const Color.fromARGB(0, 255, 255, 255)
-                : const Color.fromARGB(62, 71, 85, 97),
+                ? const Color.fromARGB(147, 255, 255, 255)
+                : const Color.fromARGB(0, 190, 13, 13),
             borderRadius: BorderRadius.circular(10),
           ),
           child: GestureDetector(
-            child: Text("${widget.title}"),
+            child: Text(
+              "${widget.title}",
+              style: TextStyle(color: Colors.white),
+            ),
             onTap: () {
               setState(() {
+                print("selected${_selectedMenuIndex}");
                 _selectedMenuIndex = widget.index;
+                print("selected${_selectedMenuIndex}");
               });
             },
           ),
