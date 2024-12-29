@@ -86,18 +86,22 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
+              color: _selectedIndex == 0 ? Colors.white : Colors.grey,
               icon: const Icon(Icons.list_alt),
               onPressed: () => _onItemTapped(0),
             ),
             IconButton(
+              color: _selectedIndex == 1 ? Colors.white : Colors.grey,
               icon: const Icon(Icons.live_tv),
               onPressed: () => _onItemTapped(1),
             ),
             IconButton(
+              color: _selectedIndex == 2 ? Colors.white : Colors.grey,
               icon: const Icon(Icons.sports_soccer),
               onPressed: () => _onItemTapped(2),
             ),
             IconButton(
+              color: _selectedIndex == 3 ? Colors.white : Colors.grey,
               icon: const Icon(Icons.flag),
               onPressed: () => _onItemTapped(3),
             ),
