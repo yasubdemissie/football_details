@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:football_my_app/bottomNav/bottom_nav.dart';
 import 'package:football_my_app/screens/champions_league.dart';
 import 'package:football_my_app/screens/competitions.dart';
 import 'package:football_my_app/screens/live_fixtures.dart';

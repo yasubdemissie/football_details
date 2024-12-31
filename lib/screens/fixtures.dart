@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:football_my_app/components/game_item.dart';
 import 'package:football_my_app/helper/date_formatter.dart';
 import '../helper/fetchData.dart';
 import 'game_details.dart';
@@ -28,10 +29,10 @@ class _FixturesScreenState extends State<FixturesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: const Color(0xFFF3F6FB), // Subtle background color
-      appBar: AppBar(
-        title: const Text('Fixtures'),
-        backgroundColor: const Color(0xFF00274D),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Fixtures'),
+      //   backgroundColor: const Color(0xFF00274D),
+      // ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: _fixtures,
         builder: (context, snapshot) {
@@ -59,7 +60,7 @@ class _FixturesScreenState extends State<FixturesScreen> {
                   children: [
                     if (index > 0)
                       // const CustomDashedDivider(), // Custom divider between tiles
-                      const SizedBox(height: 2.0),
+                      const SizedBox(height: 6.0),
                     buildFixtureTile(
                       context,
                       homeTeam,
@@ -78,84 +79,7 @@ class _FixturesScreenState extends State<FixturesScreen> {
     );
   }
 
-  Widget buildFixtureTile(BuildContext context, String homeTeam,
-      String awayTeam, String date, String year, int fixtureId) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [
-            Color.fromARGB(255, 0, 0, 0),
-            Color.fromARGB(255, 20, 20, 50),
-            Color.fromARGB(255, 17, 16, 39),
-            Color.fromARGB(255, 0, 0, 0),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(12.0),
-        boxShadow: [
-          BoxShadow(
-            color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
-            blurRadius: 6.0,
-            // offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: ListTile(
-        leading: const CircleAvatar(
-          backgroundColor: Color(0xFF00274D),
-          child: Icon(
-            Icons.sports_soccer,
-            color: Colors.white,
-            size: 20.0,
-          ),
-        ),
-        title: Text(
-          '$homeTeam vs $awayTeam',
-          style: const TextStyle(
-            fontSize: 14.0,
-            // fontFamily: String.fromEnvironment("name"),
-            fontWeight: FontWeight.w300,
-            fontStyle: FontStyle.italic,
-            color: Color.fromARGB(221, 236, 236, 236),
-          ),
-        ),
-        subtitle: Row(
-          children: [
-            const Icon(
-              Icons.punch_clock_outlined,
-              size: 16.0,
-              color: Color.fromARGB(255, 134, 179, 255),
-            ),
-            const SizedBox(width: 5.0),
-            Text(
-              date,
-              style: const TextStyle(
-                fontSize: 14.0,
-                color: Color.fromARGB(255, 171, 212, 255),
-              ),
-            ),
-          ],
-        ),
-        trailing: Text(
-          year,
-          style: const TextStyle(
-            fontSize: 13.0,
-            fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 152, 190, 255),
-          ),
-        ),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => GameDetailsScreen(fixtureId: fixtureId),
-            ),
-          );
-        },
-      ),
-    );
-  }
+  
 }
 
 class CustomDashedDivider extends StatelessWidget {

@@ -1,5 +1,6 @@
 // ChampionsLeagueFixture
 import 'package:flutter/material.dart';
+import 'package:football_my_app/components/game_item.dart';
 import 'package:football_my_app/helper/date_formatter.dart';
 import '../helper/fetchData.dart';
 import 'game_details.dart';
@@ -49,71 +50,14 @@ class _ChampionsLeagueFixtureState extends State<ChampionsLeagueFixture> {
               var year = formatDateYear(match['date']);
               var fixtureId = match['id']; // Unique ID for the fixture
 
-              return ListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 10.0), // Add spacing around the tile
-                leading: CircleAvatar(
-                  backgroundColor: const Color.fromARGB(
-                      255, 0, 0, 0), // Background color for the icon
-                  child: const Icon(
-                    Icons.sports_soccer,
-                    color: Color.fromARGB(255, 255, 255, 255), // Icon color
-                    size: 20.0, // Icon size
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 6,
                   ),
-                ),
-                title: Text(
-                  '$homeTeam vs $awayTeam',
-                  style: const TextStyle(
-                    fontSize: 15.0, // Increase font size
-                    fontWeight: FontWeight.w500, // Bold for emphasis
-                    fontStyle: FontStyle.italic,
-                    color: Colors.black87, // Title color
-                  ),
-                ),
-                subtitle: Row(
-                  children: [
-                    const Icon(
-                      Icons.punch_clock_outlined,
-                      size: 15.0, // Icon size
-                      color: Color.fromARGB(255, 1, 44, 144), // Icon color
-                    ),
-                    const SizedBox(
-                        width: 5.0), // Add spacing between icon and text
-                    Text(
-                      '$date',
-                      style: const TextStyle(
-                        fontSize: 13.0,
-                        color: Color.fromARGB(
-                            255, 0, 17, 127), // Subtle color for the date
-                      ),
-                    ),
-                  ],
-                ), // Add a calendar icon
-                trailing: Text(
-                  '$year',
-                  style: const TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 1, 44,
-                        144), // Match the icon color for consistency
-                  ),
-                ),
-                tileColor: const Color.fromARGB(
-                    255, 243, 250, 255), // Light background for the ListTile
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      12.0), // Rounded corners for a modern look
-                ),
-                onTap: () {
-                  // Handle tap: Navigate to the details screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GameDetailsScreen(fixtureId: fixtureId,),
-                    ),
-                  );
-                },
+                  buildFixtureTile(
+                      context, homeTeam, awayTeam, date, year, fixtureId),
+                ],
               );
             },
           );
