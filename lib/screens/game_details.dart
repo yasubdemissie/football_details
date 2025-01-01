@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-// import 'package:football_my_app/components/event_details.dart';
+import 'package:football_my_app/components/game_stats.dart';
+import 'package:football_my_app/components/statistics_details.dart';
+// import 'package:flutter/rendering.dart';
 import '../helper/fetchData.dart';
 
 class GameDetailsScreen extends StatefulWidget {
@@ -14,18 +15,18 @@ class GameDetailsScreen extends StatefulWidget {
 }
 
 class _GameDetailsScreenState extends State<GameDetailsScreen> {
-  late int _selectedMenuIndex = 2;
+  late int _selectedMenuIndex = 0;
   List<Widget> _selectedWidgets = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 48, 48, 48),
-        title: const Text(
-          'Game Details',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: const Color.fromARGB(255, 48, 48, 48),
+      //   title: const Text(
+      //     'Game Details',
+      //     style: TextStyle(color: Colors.white),
+      //   ),
+      // ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: fetchGameDetails(
             widget.fixtureId), // Fetch game details using the ID
@@ -46,6 +47,9 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
             // For the upper section of the game details
             var score = gameInfo["goals"];
             var teams = gameInfo["teams"];
+            var statistics = gameInfo["statistics"];
+            var events = gameInfo['events'];
+
             var leagueLogo = gameInfo["league"]["logo"];
             var home = teams["home"];
             var homeLogo = home["logo"];
@@ -62,7 +66,6 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
             ];
 
             // For the main Part
-            var events = gameInfo['events'];
             return Container(
               height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(color: Colors.black),
@@ -75,7 +78,11 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
                       awayName),
                   detailsMenu(menus),
                   const SizedBox(height: 30),
-                  EventDetails(events: events)
+                  // EventDetails(events: events),
+                  buildStatisticsDisplay(
+                    statistics[0]['statistics'],
+                    statistics[1]['statistics'],
+                  ),
                 ],
               ),
             );
@@ -130,7 +137,10 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                  onPressed: () {}, icon: Icon(Icons.arrow_left_outlined)),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_left_outlined)),
               Container(
                 child: Row(
                   children: [
