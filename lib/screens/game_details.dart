@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:football_my_app/components/game_lineup.dart';
 import 'package:football_my_app/components/game_stats.dart';
-import 'package:football_my_app/components/statistics_details.dart';
-// import 'package:flutter/rendering.dart';
+import 'package:flutter/rendering.dart';
 import '../helper/fetchData.dart';
 
 class GameDetailsScreen extends StatefulWidget {
@@ -20,16 +20,8 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: const Color.fromARGB(255, 48, 48, 48),
-      //   title: const Text(
-      //     'Game Details',
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      // ),
       body: FutureBuilder<Map<String, dynamic>>(
-        future: fetchGameDetails(
-            widget.fixtureId), // Fetch game details using the ID
+        future: fetchGameDetails(widget.fixtureId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -38,26 +30,12 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
           } else if (!snapshot.hasData) {
             return const Center(child: Text('No game details available.'));
           } else {
-            var data = snapshot.data!;
-            // var json = jsonEncode(data);
-            // var lineups = data['lineups'];
-            // var standings = data['standings'];
-            var gameInfo = data['response'][0];
-
-            // For the upper section of the game details
-            var score = gameInfo["goals"];
-            var teams = gameInfo["teams"];
-            var statistics = gameInfo["statistics"];
-            var events = gameInfo['events'];
-
-            var leagueLogo = gameInfo["league"]["logo"];
-            var home = teams["home"];
-            var homeLogo = home["logo"];
-            var away = teams["away"];
-            var awayName = away["name"];
-            var homeName = home["name"];
-            var awayLogo = away["logo"];
-            List<String> menus = [
+            var gameInfo = snapshot.data!['response'][0];
+            var lineups = gameInfo["lineups"] ?? [];
+            var events = gameInfo["events"] ?? [];
+            var team1Stats = gameInfo["statistics"][0]["statistics"] ?? [];
+            var team2Stats = gameInfo["statistics"][1]["statistics"] ?? [];
+            var menus = [
               "Details",
               "Lineups",
               "Statistics",
@@ -65,23 +43,32 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
               "Commentary"
             ];
 
-            // For the main Part
+            _selectedWidgets = [
+              EventDetails(events: events),
+              LineupsWidget(lineups: lineups),
+              // Text('Game Linpeup Content'), // Replace with actual widget
+              buildStatisticsDisplay(team1Stats, team2Stats),
+              Text('Game Standing Content'), // Replace with actual widget
+              Text('Game Commnetory Content'), // Replace with actual widget
+            ];
+
             return Container(
               height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(color: Colors.black),
-              // padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 16),
-                  detailsHeader(leagueLogo, homeLogo, homeName, score, awayLogo,
-                      awayName),
+                  detailsHeader(
+                    gameInfo["league"]["logo"],
+                    gameInfo["teams"]["home"]["logo"],
+                    gameInfo["teams"]["home"]["name"],
+                    gameInfo["goals"],
+                    gameInfo["teams"]["away"]["logo"],
+                    gameInfo["teams"]["away"]["name"],
+                  ),
                   detailsMenu(menus),
-                  const SizedBox(height: 30),
-                  // EventDetails(events: events),
-                  buildStatisticsDisplay(
-                    statistics[0]['statistics'],
-                    statistics[1]['statistics'],
+                  Expanded(
+                    child: _selectedWidgets[_selectedMenuIndex],
                   ),
                 ],
               ),
