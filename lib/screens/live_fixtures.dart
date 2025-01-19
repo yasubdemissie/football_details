@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:football_my_app/helper/date_formatter.dart';
 import '../helper/fetchData.dart';
-import 'game_details.dart';
+import 'details.dart';
 
 class LiveFixturesScreen extends StatefulWidget {
   const LiveFixturesScreen({Key? key}) : super(key: key);

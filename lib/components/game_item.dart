@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:football_my_app/screens/game_details.dart';
+import 'package:football_my_app/screens/details.dart';
 
 Widget buildFixtureTile(BuildContext context, String homeTeam,
       String awayTeam, String date, String year, int fixtureId) {
