@@ -1,14 +1,19 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-const String apiKey = "06193126e7dc6ded03be176a16189061";
+const String apiKey1 = "06193126e7dc6ded03be176a16189061";
+const String apiKey2 = "6a81f07656msh75afaa78f557fe1p1fd5ddjsnee70b3f10fb";
+
+const url1 = "https://v3.football.api-sports.io";
+const url2 = "https://api-football-v1.p.rapidapi.com/v3";
+
 var headers = {
-  'x-rapidapi-key': apiKey,
-  'x-rapidapi-host': 'v3.football.api-sports.io'
+  'x-rapidapi-key': apiKey2,
+  'x-rapidapi-host': url2,
 };
 
 Future<Map<String, dynamic>> fetchData() async {
-  const url = "https://v3.football.api-sports.io/fixtures?live=all";
+  const url = "$url1/fixtures?live=all";
 
   try {
     var response = await http.get(Uri.parse(url), headers: headers);
@@ -24,8 +29,7 @@ Future<Map<String, dynamic>> fetchData() async {
 
 Future<Map<String, dynamic>> fetchLeagueFixtures(
     String leagueId, String season) async {
-  final url =
-      "https://v3.football.api-sports.io/fixtures?league=$leagueId&season=$season";
+  final url = "$url1/fixtures?league=$leagueId&season=$season";
 
   try {
     var response = await http.get(Uri.parse(url), headers: headers);
@@ -54,11 +58,11 @@ Future<Map<String, dynamic>> fetchAsianCupFixtures(String season) async {
 }
 
 Future<Map<String, dynamic>> fetchGameDetails(int fixtureId) async {
-  final url = "https://v3.football.api-sports.io/fixtures?id=$fixtureId";
+  final url = "$url1/fixtures?id=$fixtureId";
 
   const header = {
-    'x-rapidapi-key': apiKey,
-    'x-rapidapi-host': 'v3.football.api-sports.io'
+    'x-rapidapi-key': apiKey2,
+    'x-rapidapi-host': url2
   };
 
   var response = await http.get(Uri.parse(url), headers: headers);

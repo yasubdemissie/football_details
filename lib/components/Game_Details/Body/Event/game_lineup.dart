@@ -16,6 +16,11 @@ class LineupsWidget extends StatelessWidget {
         final startXI = teamData['startXI'];
         final substitutes = teamData['substitutes'];
 
+        final goalkeepers = startXI.where((player) => player['player']['pos'] == 'G').toList();
+        final defenders = startXI.where((player) => player['player']['pos'] == 'D').toList();
+        final midfielders = startXI.where((player) => player['player']['pos'] == 'M').toList();
+        final attackers = startXI.where((player) => player['player']['pos'] == 'F').toList();
+
         const Map<String, String> position = {
           'G': 'Goalkeeper',
           'D': 'Defender',
@@ -39,7 +44,8 @@ class LineupsWidget extends StatelessWidget {
               'Starting XI:',
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
             ),
-            playerList(startXI, team, position),
+            // playerList(startXI, team, position),
+
             const SizedBox(height: 10),
             const Text(
               'Substitutes:',
@@ -51,6 +57,8 @@ class LineupsWidget extends StatelessWidget {
       },
     );
   }
+
+  // TODO: The lineup page illusion
 
   Column playerList(players, team, Map<String, String> position) {
     return Column(

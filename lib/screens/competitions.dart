@@ -18,9 +18,9 @@ class _CompetitionsScreenState extends State<CompetitionsScreen> {
   }
 
   Future<List<Map<String, dynamic>>> fetchCompetitions() async {
-    final url = 'https://v3.football.api-sports.io/leagues';
+    final url = '$url2/leagues';
     final headers = {
-      'x-rapidapi-key': apiKey, // Replace with your API key
+      'x-rapidapi-key': apiKey2,
       'x-rapidapi-host': 'v3.football.api-sports.io'
     };
 
@@ -34,7 +34,7 @@ class _CompetitionsScreenState extends State<CompetitionsScreen> {
         'id': league['league']['id'],
         'name': league['league']['name'],
         'logo':
-            'https://media.api-sports.io/football/leagues/${league['league']['id']}.png',
+            '$url2/football/leagues/${league['league']['id']}.png',
       });
     }
     return leagues;
