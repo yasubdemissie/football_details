@@ -31,8 +31,12 @@ class _MainBodyState extends State<MainBody> {
             selectedMenuIndex: _selectedMenuIndex,
             onClick: onClick),
         // The Body of the game details page.
-        DetailsBody(
-            fixtureId: widget.fixtureId, selectedMenuIndex: _selectedMenuIndex),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.66,
+          child: DetailsBody(
+              fixtureId: widget.fixtureId,
+              selectedMenuIndex: _selectedMenuIndex),
+        ),
       ],
     );
   }

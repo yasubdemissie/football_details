@@ -46,17 +46,19 @@ class _ChampionsLeagueFixtureState extends State<ChampionsLeagueFixture> {
               var match = fixtures[index]['fixture'];
               var homeTeam = fixtures[index]['teams']['home']['name'];
               var awayTeam = fixtures[index]['teams']['away']['name'];
+              var homeLogo = fixtures[index]['teams']['home']['logo'];
+              var awayLogo = fixtures[index]['teams']['home']['logo'];
               var date = formatDateTime(match['date']);
               var year = formatDateYear(match['date']);
               var fixtureId = match['id']; // Unique ID for the fixture
 
               return Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 6,
                   ),
                   buildFixtureTile(
-                      context, homeTeam, awayTeam, date, year, fixtureId),
+                      context, homeTeam, awayTeam, date, year, fixtureId, homeLogo, awayLogo),
                 ],
               );
             },

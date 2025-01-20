@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:football_my_app/components/Game_Details/Body/detail_menu.dart';
 import 'package:football_my_app/components/Game_Details/Body/DetailsBody.dart';
-import 'package:football_my_app/components/Game_Details/Body/Event/MainBody.dart';
+import 'package:football_my_app/components/Game_Details/Body/Event/main_body.dart';
 // import 'package:football_my_app/components/Game_Details/Body/DetailMenu.dart';
 // import 'package:football_my_app/components/Game_Details/Body/Event/game_event.dart';
 // import 'package:football_my_app/components/Game_Details/Body/Event/game_lineup.dart';

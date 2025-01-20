@@ -44,7 +44,7 @@ class _FixturesScreenState extends State<FixturesScreen> {
             return const Center(child: Text('No fixtures available.'));
           } else {
             var fixtures = snapshot.data!['response'] as List<dynamic>;
-
+            var checkingTeam = fixtures[0]['fixture'];
             return ListView.builder(
               itemCount: fixtures.length,
               padding: const EdgeInsets.all(8.0),
@@ -52,6 +52,8 @@ class _FixturesScreenState extends State<FixturesScreen> {
                 var match = fixtures[index]['fixture'];
                 var homeTeam = fixtures[index]['teams']['home']['name'];
                 var awayTeam = fixtures[index]['teams']['away']['name'];
+                var homeLogo = fixtures[index]['teams']['home']['logo'];
+                var awayLogo = fixtures[index]['teams']['home']['logo'];
                 var date = formatDateTime(match['date']);
                 var year = formatDateYear(match['date']);
                 var fixtureId = match['id']; // Unique ID for the fixture
@@ -68,6 +70,8 @@ class _FixturesScreenState extends State<FixturesScreen> {
                       date,
                       year,
                       fixtureId,
+                      homeLogo,      
+                      awayLogo,
                     ),
                   ],
                 );
@@ -78,8 +82,6 @@ class _FixturesScreenState extends State<FixturesScreen> {
       ),
     );
   }
-
-  
 }
 
 class CustomDashedDivider extends StatelessWidget {

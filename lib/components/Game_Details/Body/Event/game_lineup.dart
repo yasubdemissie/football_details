@@ -16,7 +16,7 @@ class LineupsWidget extends StatelessWidget {
         final startXI = teamData['startXI'];
         final substitutes = teamData['substitutes'];
 
-        const Map<String, String> Position = {
+        const Map<String, String> position = {
           'G': 'Goalkeeper',
           'D': 'Defender',
           'M': 'Midfielder',
@@ -39,29 +39,29 @@ class LineupsWidget extends StatelessWidget {
               'Starting XI:',
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
             ),
-            playerList(startXI, team, Position),
+            playerList(startXI, team, position),
             const SizedBox(height: 10),
             const Text(
               'Substitutes:',
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
             ),
-            playerList(substitutes, team, Position),
+            playerList(substitutes, team, position),
           ],
         );
       },
     );
   }
 
-  Column playerList(players, team, Map<String, String> Position) {
+  Column playerList(players, team, Map<String, String> position) {
     return Column(
       children: [
         ListView.builder(
           shrinkWrap: true,
-          // physics: NeverScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           itemCount: players.length,
           itemBuilder: (context, index) {
             final player = players[index]['player'];
-            return playerCard(team, player, Position);
+            return playerCard(team, player, position);
           },
         ),
       ],
@@ -98,7 +98,7 @@ class LineupsWidget extends StatelessWidget {
     );
   }
 
-  ListTile playerCard(team, player, Map<String, String> Position) {
+  ListTile playerCard(team, player, Map<String, String> position) {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor:
@@ -112,7 +112,7 @@ class LineupsWidget extends StatelessWidget {
         player['name'],
         style: const TextStyle(fontSize: 14),
       ),
-      subtitle: Text('${Position[player['pos']]}'),
+      subtitle: Text('${position[player['pos']]}'),
     );
   }
 }
