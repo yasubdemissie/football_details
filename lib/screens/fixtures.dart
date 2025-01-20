@@ -53,7 +53,7 @@ class _FixturesScreenState extends State<FixturesScreen> {
                 var homeTeam = fixtures[index]['teams']['home']['name'];
                 var awayTeam = fixtures[index]['teams']['away']['name'];
                 var homeLogo = fixtures[index]['teams']['home']['logo'];
-                var awayLogo = fixtures[index]['teams']['home']['logo'];
+                var awayLogo = fixtures[index]['teams']['away']['logo'];
                 var date = formatDateTime(match['date']);
                 var year = formatDateYear(match['date']);
                 var fixtureId = match['id']; // Unique ID for the fixture

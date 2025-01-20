@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         title: const Text(
-          'YasDW Soccer',
+          'YD Soccer',
           style: TextStyle(
             fontSize: 19, // Increase font size
             fontStyle: FontStyle.italic, // Add italic style

@@ -34,24 +34,51 @@ Widget buildFixtureTile(BuildContext context, String homeTeam, String awayTeam,
           size: 20.0,
         ),
       ),
-      title: Text(
-        '$homeTeam vs $awayTeam',
-        style: const TextStyle(
-          fontSize: 14.0,
-          // fontFamily: String.fromEnvironment("name"),
-          fontWeight: FontWeight.w300,
-          fontStyle: FontStyle.italic,
-          color: Color.fromARGB(221, 236, 236, 236),
-        ),
-      ),
-      subtitle: Row(
+      title: Column(
         children: [
-          const Icon(
-            Icons.punch_clock_outlined,
-            size: 14.0,
-            color: Color.fromARGB(255, 231, 231, 231),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: SizedBox(
+                  height: 23,
+                  child: Image.network(
+                    homeLogo,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              Text(
+                homeTeam,
+                style: TextStyle(fontSize: 13, overflow: TextOverflow.ellipsis),
+              ),
+            ],
           ),
-          const SizedBox(width: 5.0),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: SizedBox(
+                  height: 23,
+                  child: Image.network(
+                    awayLogo,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              Text(
+                awayTeam,
+                style: TextStyle(fontSize: 13, overflow: TextOverflow.ellipsis),
+              ),
+            ],
+          )
+        ],
+      ),
+      trailing: Column(
+        children: [
           Text(
             date,
             style: const TextStyle(
@@ -59,15 +86,15 @@ Widget buildFixtureTile(BuildContext context, String homeTeam, String awayTeam,
               color: Color.fromARGB(255, 255, 255, 255),
             ),
           ),
+          Text(
+            year,
+            style: const TextStyle(
+              fontSize: 13.0,
+              fontWeight: FontWeight.w300,
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
+          ),
         ],
-      ),
-      trailing: Text(
-        year,
-        style: const TextStyle(
-          fontSize: 13.0,
-          fontWeight: FontWeight.w300,
-          color: Color.fromARGB(255, 255, 255, 255),
-        ),
       ),
       onTap: () {
         Navigator.push(
