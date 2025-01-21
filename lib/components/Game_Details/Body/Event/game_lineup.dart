@@ -191,7 +191,7 @@ class LineupGraph extends StatelessWidget {
                   backgroundColor: Color(
                       int.parse('0xff${team['colors']['player']['primary']}')),
                   child: Text(
-                    '${element[0]['player']['number']}',
+                    '${element['player']['number']}',
                     style: TextStyle(
                         color: Color(int.parse(
                             '0xff${team['colors']['player']['border']}'))),
