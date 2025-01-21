@@ -8,7 +8,7 @@ import 'package:football_my_app/components/Game_Details/Body/Event/main_body.dar
 // import 'package:football_my_app/components/Game_Details/Body/Event/game_stats.dart';
 import 'package:football_my_app/components/Game_Details/header/header.dart';
 // import 'package:football_my_app/components/Game_Details/Body/menu_details_element.dart';
-import '../helper/fetchData.dart';
+import '../helper/fetch_data.dart';
 
 class GameDetailsScreen extends StatefulWidget {
   final int fixtureId;

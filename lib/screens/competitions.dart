@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:football_my_app/helper/fetchData.dart';
+import 'package:football_my_app/helper/fetch_data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -18,9 +18,9 @@ class _CompetitionsScreenState extends State<CompetitionsScreen> {
   }
 
   Future<List<Map<String, dynamic>>> fetchCompetitions() async {
-    final url = '$url2/leagues';
+    const url = '$url1/leagues';
     final headers = {
-      'x-rapidapi-key': apiKey2,
+      'x-rapidapi-key': apiKey1,
       'x-rapidapi-host': 'v3.football.api-sports.io'
     };
 
@@ -34,7 +34,7 @@ class _CompetitionsScreenState extends State<CompetitionsScreen> {
         'id': league['league']['id'],
         'name': league['league']['name'],
         'logo':
-            '$url2/football/leagues/${league['league']['id']}.png',
+            '$url1/football/leagues/${league['league']['id']}.png',
       });
     }
     return leagues;
@@ -66,13 +66,13 @@ class _CompetitionsScreenState extends State<CompetitionsScreen> {
                 ),
                 title: Text(
                   league['name'],
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18.0, // Adjust text size
                     fontWeight: FontWeight.bold, // Make the title bold
                     color: Colors.black87, // Set text color
                   ),
                 ),
-                subtitle: Text(
+                subtitle: const Text(
                   'Tap for details', // Optional subtitle for additional information
                   style: TextStyle(
                     fontSize: 14.0,
@@ -93,7 +93,7 @@ class _CompetitionsScreenState extends State<CompetitionsScreen> {
                   //   MaterialPageRoute(builder: (context) => CompetitionDetailsScreen(leagueId: league['id'])),
                   // );
                 },
-                trailing: Icon(
+                trailing: const Icon(
                   Icons
                       .arrow_forward_ios, // Add an arrow icon for visual indication
                   size: 16.0,

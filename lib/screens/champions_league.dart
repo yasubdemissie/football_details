@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:football_my_app/components/game_item.dart';
 import 'package:football_my_app/helper/date_formatter.dart';
-import '../helper/fetchData.dart';
+import '../helper/fetch_data.dart';
 import 'details.dart';
 
 class ChampionsLeagueFixture extends StatefulWidget {

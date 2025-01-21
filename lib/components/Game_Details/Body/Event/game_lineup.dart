@@ -16,10 +16,14 @@ class LineupsWidget extends StatelessWidget {
         final startXI = teamData['startXI'];
         final substitutes = teamData['substitutes'];
 
-        final goalkeepers = startXI.where((player) => player['player']['pos'] == 'G').toList();
-        final defenders = startXI.where((player) => player['player']['pos'] == 'D').toList();
-        final midfielders = startXI.where((player) => player['player']['pos'] == 'M').toList();
-        final attackers = startXI.where((player) => player['player']['pos'] == 'F').toList();
+        final goalkeepers =
+            startXI.where((player) => player['player']['pos'] == 'G').toList();
+        final defenders =
+            startXI.where((player) => player['player']['pos'] == 'D').toList();
+        final midfielders =
+            startXI.where((player) => player['player']['pos'] == 'M').toList();
+        final attackers =
+            startXI.where((player) => player['player']['pos'] == 'F').toList();
 
         const Map<String, String> position = {
           'G': 'Goalkeeper',
@@ -31,34 +35,56 @@ class LineupsWidget extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            teamCard(team),
-            const SizedBox(height: 10),
-            coachCard(coach),
-            const SizedBox(height: 10),
-            Text(
-              'Formation: ${teamData['formation']}',
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            // lineup_list(goalkeepers),
+            // lineup_list(defenders),
+            // lineup_list(midfielders),
+            // lineup_list(attackers),
+            // Text("$goalkeepers"),
+            // Text("$defenders"),
+            LineupGraph(
+              position: goalkeepers,
+              team: team,
             ),
-            const SizedBox(height: 10),
-            const Text(
-              'Starting XI:',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+            LineupGraph(
+              position: defenders,
+              team: team,
             ),
-            // playerList(startXI, team, position),
+            LineupGraph(
+              position: midfielders,
+              team: team,
+            ),
+            LineupGraph(
+              position: attackers,
+              team: team,
+            ),
+            // Text("$goalkeepers"),
+            // Text("$attackers"),
+            // teamCard(team),
+            // const SizedBox(height: 10),
+            // coachCard(coach),
+            // const SizedBox(height: 10),
+            // Text(
+            //   'Formation: ${teamData['formation']}',
+            //   style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            // ),
+            // const SizedBox(height: 10),
+            // const Text(
+            //   'Starting XI:',
+            //   style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+            // ),
+            // // playerList(startXI, team, position),
 
-            const SizedBox(height: 10),
-            const Text(
-              'Substitutes:',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-            ),
-            playerList(substitutes, team, position),
+            // const SizedBox(height: 10),
+            // const Text(
+            //   'Substitutes:',
+            //   style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+            // ),
+            // playerList(substitutes, team, position),
           ],
         );
       },
     );
   }
-
-  // TODO: The lineup page illusion
 
   Column playerList(players, team, Map<String, String> position) {
     return Column(
@@ -121,6 +147,36 @@ class LineupsWidget extends StatelessWidget {
         style: const TextStyle(fontSize: 14),
       ),
       subtitle: Text('${position[player['pos']]}'),
+    );
+  }
+}
+
+// TODO: The lineup page illusion
+
+class LineupGraph extends StatelessWidget {
+  const LineupGraph({
+    super.key,
+    required this.position,
+    required this.team,
+  });
+
+  final dynamic position;
+  final dynamic team;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 22.0),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        ...position.map((keeper) => CircleAvatar(
+              backgroundColor: Color(
+                  int.parse('0xff${team['colors']['player']['primary']}')),
+              child: const Text(
+                "DF",
+                style: TextStyle(color: Colors.white),
+              ),
+            )),
+      ]),
     );
   }
 }

@@ -1,15 +1,17 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-const String apiKey1 = "06193126e7dc6ded03be176a16189061";
-const String apiKey2 = "6a81f07656msh75afaa78f557fe1p1fd5ddjsnee70b3f10fb";
+// const String apiKey1 = "06193126e7dc6ded03be176a16189061";
+const String apiKey1 = "bebe7761f9b40e3390bf3a92d111cfe2";
+// const String apiKey2 = "920662209038eaa9e621185aa478ae6b";
+// const String apiKey3 = "6a81f07656msh75afaa78f557fe1p1fd5ddjsnee70b3f10fb";
 
 const url1 = "https://v3.football.api-sports.io";
 const url2 = "https://api-football-v1.p.rapidapi.com/v3";
 
 var headers = {
-  'x-rapidapi-key': apiKey2,
-  'x-rapidapi-host': url2,
+  'x-rapidapi-key': apiKey1,
+  'x-rapidapi-host': url1,
 };
 
 Future<Map<String, dynamic>> fetchData() async {
@@ -60,10 +62,10 @@ Future<Map<String, dynamic>> fetchAsianCupFixtures(String season) async {
 Future<Map<String, dynamic>> fetchGameDetails(int fixtureId) async {
   final url = "$url1/fixtures?id=$fixtureId";
 
-  const header = {
-    'x-rapidapi-key': apiKey2,
-    'x-rapidapi-host': url2
-  };
+  // const header = {
+  //   'x-rapidapi-key': apiKey1,
+  //   'x-rapidapi-host': url1
+  // };
 
   var response = await http.get(Uri.parse(url), headers: headers);
   var data = jsonDecode(response.body);

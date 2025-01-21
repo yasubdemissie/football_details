@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:football_my_app/components/Game_Details/Body/Event/game_details.dart';
 import 'package:football_my_app/components/Game_Details/Body/Event/game_lineup.dart';
 import 'package:football_my_app/components/Game_Details/Body/Event/game_stats.dart';
-import 'package:football_my_app/helper/fetchData.dart';
+import 'package:football_my_app/helper/fetch_data.dart';
 
 class DetailsBody extends StatefulWidget {
   final int fixtureId;
