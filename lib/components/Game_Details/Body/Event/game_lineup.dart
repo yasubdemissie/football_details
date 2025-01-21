@@ -7,82 +7,95 @@ class LineupsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: lineups.length,
-      itemBuilder: (context, index) {
-        final teamData = lineups[index];
-        final team = teamData['team'];
-        final coach = teamData['coach'];
-        final startXI = teamData['startXI'];
-        final substitutes = teamData['substitutes'];
+    return Stack(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/football_field_vertical.jpeg"),
+                  fit: BoxFit.cover)),
+        ),
+        // Image.asset(
+        //   "assets/football_field_vertical.jpeg",
+        //   fit: BoxFit.fill,
+        // ),
+        ListView.builder(
+          itemCount: lineups.length,
+          itemBuilder: (context, index) {
+            final teamData = lineups[index];
+            final team = teamData['team'];
+            final coach = teamData['coach'];
+            final startXI = teamData['startXI'];
+            final substitutes = teamData['substitutes'];
 
-        final goalkeepers =
-            startXI.where((player) => player['player']['pos'] == 'G').toList();
-        final defenders =
-            startXI.where((player) => player['player']['pos'] == 'D').toList();
-        final midfielders =
-            startXI.where((player) => player['player']['pos'] == 'M').toList();
-        final attackers =
-            startXI.where((player) => player['player']['pos'] == 'F').toList();
+            final goalkeepers = startXI
+                .where((player) => player['player']['pos'] == 'G')
+                .toList();
+            final defenders = startXI
+                .where((player) => player['player']['pos'] == 'D')
+                .toList();
+            final midfielders = startXI
+                .where((player) => player['player']['pos'] == 'M')
+                .toList();
+            final attackers = startXI
+                .where((player) => player['player']['pos'] == 'F')
+                .toList();
 
-        const Map<String, String> position = {
-          'G': 'Goalkeeper',
-          'D': 'Defender',
-          'M': 'Midfielder',
-          'F': 'Forward',
-        };
+            const Map<String, String> position = {
+              'G': 'Goalkeeper',
+              'D': 'Defender',
+              'M': 'Midfielder',
+              'F': 'Forward',
+            };
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // lineup_list(goalkeepers),
-            // lineup_list(defenders),
-            // lineup_list(midfielders),
-            // lineup_list(attackers),
-            // Text("$goalkeepers"),
-            // Text("$defenders"),
-            LineupGraph(
-              position: goalkeepers,
-              team: team,
-            ),
-            LineupGraph(
-              position: defenders,
-              team: team,
-            ),
-            LineupGraph(
-              position: midfielders,
-              team: team,
-            ),
-            LineupGraph(
-              position: attackers,
-              team: team,
-            ),
-            // Text("$goalkeepers"),
-            // Text("$attackers"),
-            // teamCard(team),
-            // const SizedBox(height: 10),
-            // coachCard(coach),
-            // const SizedBox(height: 10),
-            // Text(
-            //   'Formation: ${teamData['formation']}',
-            //   style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-            // ),
-            // const SizedBox(height: 10),
-            // const Text(
-            //   'Starting XI:',
-            //   style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-            // ),
-            // // playerList(startXI, team, position),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LineupGraph(
+                  position: goalkeepers,
+                  team: team,
+                ),
+                LineupGraph(
+                  position: defenders,
+                  team: team,
+                ),
+                LineupGraph(
+                  position: midfielders,
+                  team: team,
+                ),
+                LineupGraph(
+                  position: attackers,
+                  team: team,
+                ),
+                // Text("$goalkeepers"),
+                // Text("$attackers"),
+                // teamCard(team),
+                // const SizedBox(height: 10),
+                // coachCard(coach),
+                // const SizedBox(height: 10),
+                // Text(
+                //   'Formation: ${teamData['formation']}',
+                //   style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                // ),
+                // const SizedBox(height: 10),
+                // const Text(
+                //   'Starting XI:',
+                //   style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                // ),
+                // // playerList(startXI, team, position),
 
-            // const SizedBox(height: 10),
-            // const Text(
-            //   'Substitutes:',
-            //   style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-            // ),
-            // playerList(substitutes, team, position),
-          ],
-        );
-      },
+                // const SizedBox(height: 10),
+                // const Text(
+                //   'Substitutes:',
+                //   style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                // ),
+                // playerList(substitutes, team, position),
+              ],
+            );
+          },
+        ),
+      ],
     );
   }
 
@@ -165,18 +178,30 @@ class LineupGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 22.0),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        ...position.map((keeper) => CircleAvatar(
-              backgroundColor: Color(
-                  int.parse('0xff${team['colors']['player']['primary']}')),
-              child: const Text(
-                "DF",
-                style: TextStyle(color: Colors.white),
+    print(position);
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ...position.map(
+                (element) => CircleAvatar(
+                  backgroundColor: Color(
+                      int.parse('0xff${team['colors']['player']['primary']}')),
+                  child: Text(
+                    '${element[0]['player']['number']}',
+                    style: TextStyle(
+                        color: Color(int.parse(
+                            '0xff${team['colors']['player']['border']}'))),
+                  ),
+                ),
               ),
-            )),
-      ]),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

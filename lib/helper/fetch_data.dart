@@ -2,7 +2,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 // const String apiKey1 = "06193126e7dc6ded03be176a16189061";
-const String apiKey1 = "bebe7761f9b40e3390bf3a92d111cfe2";
+// const String apiKey1 = "bebe7761f9b40e3390bf3a92d111cfe2";
+const String apiKey1 = "a2730bc99f110dba8e97453d97b5b050";
 // const String apiKey2 = "920662209038eaa9e621185aa478ae6b";
 // const String apiKey3 = "6a81f07656msh75afaa78f557fe1p1fd5ddjsnee70b3f10fb";
 
