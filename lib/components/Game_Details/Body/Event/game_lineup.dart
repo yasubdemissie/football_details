@@ -12,14 +12,11 @@ class LineupsWidget extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/football_field_vertical.jpeg"),
-                  fit: BoxFit.cover)),
+            image: DecorationImage(
+                image: AssetImage("assets/football_field_vertical.jpeg"),
+                fit: BoxFit.cover),
+          ),
         ),
-        // Image.asset(
-        //   "assets/football_field_vertical.jpeg",
-        //   fit: BoxFit.fill,
-        // ),
         ListView.builder(
           itemCount: lineups.length,
           itemBuilder: (context, index) {
@@ -49,49 +46,13 @@ class LineupsWidget extends StatelessWidget {
               'F': 'Forward',
             };
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                LineupGraph(
-                  position: goalkeepers,
-                  team: team,
-                ),
-                LineupGraph(
-                  position: defenders,
-                  team: team,
-                ),
-                LineupGraph(
-                  position: midfielders,
-                  team: team,
-                ),
-                LineupGraph(
-                  position: attackers,
-                  team: team,
-                ),
-                // Text("$goalkeepers"),
-                // Text("$attackers"),
-                // teamCard(team),
-                // const SizedBox(height: 10),
-                // coachCard(coach),
-                // const SizedBox(height: 10),
-                // Text(
-                //   'Formation: ${teamData['formation']}',
-                //   style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                // ),
-                // const SizedBox(height: 10),
-                // const Text(
-                //   'Starting XI:',
-                //   style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                // ),
-                // // playerList(startXI, team, position),
-
-                // const SizedBox(height: 10),
-                // const Text(
-                //   'Substitutes:',
-                //   style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                // ),
-                // playerList(substitutes, team, position),
-              ],
+            return LineupPosition(
+              goalkeepers: goalkeepers,
+              team: team,
+              defenders: defenders,
+              midfielders: midfielders,
+              attackers: attackers,
+              index: index,
             );
           },
         ),
@@ -164,6 +125,74 @@ class LineupsWidget extends StatelessWidget {
   }
 }
 
+class LineupPosition extends StatelessWidget {
+  const LineupPosition({
+    super.key,
+    required this.goalkeepers,
+    required this.team,
+    required this.defenders,
+    required this.midfielders,
+    required this.attackers,
+    required this.index,
+  });
+
+  final dynamic goalkeepers;
+  final dynamic team;
+  final dynamic defenders;
+  final dynamic midfielders;
+  final dynamic attackers;
+  final dynamic index;
+
+  @override
+  Widget build(BuildContext context) {
+    if (index == 0) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          LineupGraph(
+            position: goalkeepers,
+            team: team,
+          ),
+          LineupGraph(
+            position: defenders,
+            team: team,
+          ),
+          LineupGraph(
+            position: midfielders,
+            team: team,
+          ),
+          LineupGraph(
+            position: attackers,
+            team: team,
+          ),
+        ],
+      );
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          LineupGraph(
+            position: attackers,
+            team: team,
+          ),
+          LineupGraph(
+            position: midfielders,
+            team: team,
+          ),
+          LineupGraph(
+            position: defenders,
+            team: team,
+          ),
+          LineupGraph(
+            position: goalkeepers,
+            team: team,
+          ),
+        ],
+      );
+    }
+  }
+}
+
 // TODO: The lineup page illusion
 
 class LineupGraph extends StatelessWidget {
@@ -187,15 +216,25 @@ class LineupGraph extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ...position.map(
-                (element) => CircleAvatar(
-                  backgroundColor: Color(
-                      int.parse('0xff${team['colors']['player']['primary']}')),
-                  child: Text(
-                    '${element['player']['number']}',
-                    style: TextStyle(
-                        color: Color(int.parse(
-                            '0xff${team['colors']['player']['border']}'))),
-                  ),
+                (element) => Column(
+                  children: [
+                    CircleAvatar(
+                      maxRadius: 12,
+                      backgroundColor: Color(int.parse(
+                          '0xff${team['colors']['player']['primary']}')),
+                      child: Text(
+                        '${element['player']['number']}',
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Color(int.parse(
+                                '0xff${team['colors']['player']['border']}'))),
+                      ),
+                    ),
+                    Text(
+                      "${element['player']['name']}",
+                      style: TextStyle(fontSize: 10),
+                    )
+                  ],
                 ),
               ),
             ],

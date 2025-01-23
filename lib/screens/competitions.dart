@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:football_my_app/components/competitions_screen.dart';
 import 'package:football_my_app/helper/fetch_data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -33,8 +34,7 @@ class _CompetitionsScreenState extends State<CompetitionsScreen> {
       leagues.add({
         'id': league['league']['id'],
         'name': league['league']['name'],
-        'logo':
-            '$url1/football/leagues/${league['league']['id']}.png',
+        'logo': '$url1/football/leagues/${league['league']['id']}.png',
       });
     }
     return leagues;
@@ -73,29 +73,26 @@ class _CompetitionsScreenState extends State<CompetitionsScreen> {
                   ),
                 ),
                 subtitle: const Text(
-                  'Tap for details', // Optional subtitle for additional information
+                  'Tap for details',
                   style: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.grey, // Subtle color for the subtitle
+                    color: Colors.grey,
                   ),
                 ),
-                tileColor: const Color.fromARGB(
-                    255, 255, 255, 255), // Set a background color for the tile
+                tileColor: const Color.fromARGB(255, 255, 255, 255),
                 shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.circular(10.0), // Round the corners
                 ),
                 onTap: () {
-                  // Handle tap event here, for example:
-                  // Navigate to the competition's details or fixtures.
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => CompetitionDetailsScreen(leagueId: league['id'])),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CompetitionDetailsScreen()),
+                  );
                 },
                 trailing: const Icon(
-                  Icons
-                      .arrow_forward_ios, // Add an arrow icon for visual indication
+                  Icons.arrow_forward_ios,
                   size: 16.0,
                   color: Colors.black45,
                 ),

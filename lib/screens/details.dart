@@ -21,17 +21,7 @@ class GameDetailsScreen extends StatefulWidget {
 }
 
 class _GameDetailsScreenState extends State<GameDetailsScreen> {
-  // late int _selectedMenuIndex = 0;
 
-  // void onClick(int index) {
-  //   setState(() {
-  //     _selectedMenuIndex = index;
-  //   });
-  // }
-
-  // var menus = ["Details", "Lineups", "Statistics", "Standings", "Commentary"];
-
-  // List<Widget> _selectedWidgets = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
